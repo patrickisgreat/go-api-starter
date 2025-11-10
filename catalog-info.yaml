@@ -1,0 +1,28 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+spec:
+  type: grpc
+  lifecycle: production
+  owner: principal-engineers-team
+  definition:
+    $text: ./rpc/fortune_go_api.proto
+metadata:
+  name: fortune_go_api.proto
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+spec:
+  type: foundational_service
+  lifecycle: production
+  owner: principal-engineers-team
+  providesApis:
+    - fortune_go_api.proto
+metadata:
+  name: go-api-starter
+  description: Tells your fortune
+  tags:
+    - golden-path
+    - go
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+    github.com/project-slug: patrickisgreat/go-api-starter

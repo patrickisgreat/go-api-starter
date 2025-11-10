@@ -1,0 +1,167 @@
+version: '3'
+
+dotenv: ['.env/.env.{{.ENV}}', '.env/.env.local']
+
+tasks:
+  deps:macos:
+    desc: Install dependencies on macOS
+    env:
+      AIR_VERSION: latest
+    cmds:
+      - brew install --quiet protobuf
+      - brew install --quiet golangci-lint
+      - go install "github.com/air-verse/air@${AIR_VERSION}"
+      - go install golang.org/x/tools/cmd/goimports@latest
+      - task: deps:proto
+
+  deps:proto:
+    desc: Install protobuf compile dependencies
+    env:
+      PROTOC_GEN_TWIRP_VERSION: latest
+      PROTOC_GEN_GO_VERSION: latest
+    cmds:
+      - go install "github.com/twitchtv/twirp/protoc-gen-twirp@${PROTOC_GEN_TWIRP_VERSION}"
+      - go install "google.golang.org/protobuf/cmd/protoc-gen-go@${PROTOC_GEN_GO_VERSION}"
+
+  install:
+    desc: Install dependencies
+    sources:
+      - go.mod
+      - go.sum
+    cmds:
+      - go get -t ./...
+
+  vet:
+    desc: Vet go files
+    sources:
+      - cmd/**/*.go
+      - internal/**/*.go
+    cmds:
+      - go vet ./...
+
+  tidy:
+    desc: Tidy go modules
+    sources:
+      - cmd/**/*.go
+      - internal/**/*.go
+    cmds:
+      - go mod tidy
+
+  build:
+    desc: Build the app
+    deps: [gen:rpc]
+    dir: ./cmd/app
+    sources:
+      - cmd/**/*.go
+      - internal/**/*.go
+    generates:
+      - cmd/app/bin/go-api-starter
+    cmds:
+      - rm -f ./bin/go-api-starter
+      - CGO_ENABLED=0 GOOS=${GOOS:-darwin} go build -v -o ./bin/go-api-starter
+
+  format:
+    desc: Format the go files
+    sources:
+      - cmd/**/*.go
+      - internal/**/*.go
+    cmds:
+      - goimports -w -local "github.com/patrickisgreat/go-api-starter" .
+
+  lint:
+    desc: Lint the go files
+    deps: [format]
+    sources:
+      - cmd/**/*.go
+      - internal/**/*.go
+    cmds:
+      - golangci-lint run
+
+  test:
+    desc: Run unit tests
+    deps: [tidy, lint, vet]
+    sources:
+      - cmd/**/*.go
+      - internal/**/*.go
+      - .env/**
+    env:
+      ENV: test
+      FORTUNE_HOST: 127.0.0.1
+    cmds:
+      - go test -v -p 1 -timeout 60s $(go list ./... | grep -v -e /rpc -e /end_to_end)
+
+  test:ci:
+    desc: Run tests for CI
+    sources:
+      - cmd/**/*.go
+      - internal/**/*.go
+      - .env/**
+    deps: [vet]
+    env:
+      ENV: test
+    cmds:
+      - go test -v -p 1 -timeout 60s $(go list ./... | grep -v -e /rpc -e /end_to_end)
+
+  test:e2e:
+    desc: Run end to end tests
+    deps: [build]
+    env:
+      ENV: test
+    cmds:
+      - go test -v -p 1 -timeout 60s github.com/patrickisgreat/go-api-starter/end_to_end
+  
+  test:e2e:ci:
+    desc: Run end to end tests
+    env:
+      ENV: test
+    cmds:
+      - go test -v -p 1 -timeout 60s github.com/patrickisgreat/go-api-starter/end_to_end
+
+  test:coverage:
+    desc: Run unit tests with coverage
+    sources:
+      - cmd/**/*.go
+      - internal/**/*.go
+      - .env/.env.test
+    env:
+      ENV: test
+    cmds:
+      - go test -p 1 -timeout 60s $(go list ./... | grep -v -e /rpc -e /end_to_end) -coverprofile coverage.out
+      - go tool cover -html coverage.out
+
+  run:
+    desc: Run the app locally and watch for changes
+    env:
+      ENV: local
+    cmds:
+      -  air
+
+  gen:rpc:
+    desc: Generate rpc code
+    deps:
+      - deps:proto
+    sources:
+      - rpc/**
+    generates:
+      - internal/generated/**
+    cmds:
+      - rm -rf internal/generated && mkdir -p internal/generated
+      - protoc fortune_go_api.proto --proto_path=rpc --go_out=./internal/generated --twirp_out=./internal/generated
+
+  gen:docs:
+    desc: Generate rpc docs
+    sources:
+      - rpc/**
+    generates:
+      - docs/**
+    cmds:
+      - rm -rf docs/fortune_go_api.md
+      - docker run --platform=linux/amd64 --rm -v $(pwd)/docs:/out -v $(pwd)/rpc:/protos pseudomuto/protoc-gen-doc --doc_opt=markdown,fortune_go_api.md
+
+  upgrade:
+    desc: Bump dependencies
+    sources:
+      - cmd/**/*.go
+      - internal/**/*.go
+    cmds:
+      - go get -u ./...
