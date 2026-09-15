@@ -2,6 +2,22 @@ site_name: pb-go-api-starter
 repo_name: pb-go-api-starter
 repo_url: https://github.com/patrickisgreat/pb-go-api-starter
 dev_addr: 0.0.0.0:8000
+nav:
+  - Overview: index.md
+  - Getting started: getting-started.md
+  - Architecture: architecture.md
+  - API guide: api.md
+  - Proto reference: pb_go_api_starter.md
+  - Configuration: configuration.md
+  - Testing: testing.md
+  - Development workflow: development.md
+  - Deployment: deployment.md
+markdown_extensions:
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
 plugins:
   - search
   - git-revision-date-localized:
