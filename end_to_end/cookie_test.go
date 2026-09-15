@@ -10,7 +10,7 @@ import (
 func TestGetCookie(t *testing.T) {
 	c := qt.New(t)
 
-	url := fortuneHost + "/twirp/proto.patrickisgreat.go_api_starter.api.Fortune/GetCookie"
+	url := fortuneHost + "/twirp/proto.patrickisgreat.pb_go_api_starter.api.Fortune/GetCookie"
 	payload := map[string]interface{}{
 		"user_session": map[string]interface{}{
 			"user_urn": "myapp:users:2",
@@ -26,7 +26,7 @@ func TestGetCookie(t *testing.T) {
 func TestGetCookieFlaky(t *testing.T) {
 	c := qt.New(t)
 
-	url := fortuneHost + "/twirp/proto.patrickisgreat.go_api_starter.api.Fortune/GetCookieFlaky"
+	url := fortuneHost + "/twirp/proto.patrickisgreat.pb_go_api_starter.api.Fortune/GetCookieFlaky"
 	payload := map[string]interface{}{
 		"user_session": map[string]interface{}{
 			"user_urn": "myapp:users:2",
@@ -43,7 +43,7 @@ func TestGetCookieFlaky(t *testing.T) {
 func TestGetCookieLate(t *testing.T) {
 	c := qt.New(t)
 
-	url := fortuneHost + "/twirp/proto.patrickisgreat.go_api_starter.api.Fortune/GetCookieLate"
+	url := fortuneHost + "/twirp/proto.patrickisgreat.pb_go_api_starter.api.Fortune/GetCookieLate"
 	payload := map[string]interface{}{
 		"user_session": map[string]interface{}{
 			"user_urn": "myapp:users:2",

@@ -74,7 +74,7 @@ module "alerts" {
   service_name = "${var.system}-api"
 
   owner = "dx-team"
-  repo  = "patrickisgreat/go-api-starter"
+  repo  = "patrickisgreat/pb-go-api-starter"
 
   slack_channel          = "dx-alerts"
   enable_pagerduty       = false

@@ -1,7 +1,7 @@
 terraform {
   required_version = "~> 1.5"
   backend "s3" {
-    key     = "services/go-api-starter"
+    key     = "services/pb-go-api-starter"
     region  = "eu-central-1"
     encrypt = "true"
   }

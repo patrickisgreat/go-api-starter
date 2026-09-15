@@ -1,4 +1,4 @@
-module github.com/patrickisgreat/go-api-starter
+module github.com/patrickisgreat/pb-go-api-starter
 
 go 1.23.8
 

@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package proto.patrickisgreat.go_api_starter.api;
+package proto.patrickisgreat.pb_go_api_starter.api;
 
-option go_package="go_api_starter/api";
+option go_package="pb_go_api_starter/api";
 
 import "google/protobuf/wrappers.proto";
 import "common_session.proto";

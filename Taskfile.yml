@@ -55,10 +55,10 @@ tasks:
       - cmd/**/*.go
       - internal/**/*.go
     generates:
-      - cmd/app/bin/go-api-starter
+      - cmd/app/bin/pb-go-api-starter
     cmds:
-      - rm -f ./bin/go-api-starter
-      - CGO_ENABLED=0 GOOS=${GOOS:-darwin} go build -v -o ./bin/go-api-starter
+      - rm -f ./bin/pb-go-api-starter
+      - CGO_ENABLED=0 GOOS=${GOOS:-darwin} go build -v -o ./bin/pb-go-api-starter
 
   format:
     desc: Format the go files
@@ -66,7 +66,7 @@ tasks:
       - cmd/**/*.go
       - internal/**/*.go
     cmds:
-      - goimports -w -local "github.com/patrickisgreat/go-api-starter" .
+      - goimports -w -local "github.com/patrickisgreat/pb-go-api-starter" .
 
   lint:
     desc: Lint the go files
@@ -108,14 +108,14 @@ tasks:
     env:
       ENV: test
     cmds:
-      - go test -v -p 1 -timeout 60s github.com/patrickisgreat/go-api-starter/end_to_end
+      - go test -v -p 1 -timeout 60s github.com/patrickisgreat/pb-go-api-starter/end_to_end
   
   test:e2e:ci:
     desc: Run end to end tests
     env:
       ENV: test
     cmds:
-      - go test -v -p 1 -timeout 60s github.com/patrickisgreat/go-api-starter/end_to_end
+      - go test -v -p 1 -timeout 60s github.com/patrickisgreat/pb-go-api-starter/end_to_end
 
   test:coverage:
     desc: Run unit tests with coverage

@@ -6,8 +6,8 @@ import (
 
 	"github.com/twitchtv/twirp"
 
-	"github.com/patrickisgreat/go-api-starter/internal/appserver"
-	proto "github.com/patrickisgreat/go-api-starter/internal/generated/go_api_starter/api"
+	"github.com/patrickisgreat/pb-go-api-starter/internal/appserver"
+	proto "github.com/patrickisgreat/pb-go-api-starter/internal/generated/pb_go_api_starter/api"
 )
 
 func GetCookieFlakyHandler(ctx context.Context, serverContext *appserver.ServerContext, request *proto.GetCookieFlakyRequest) (*proto.GetCookieFlakyResponse, error) {

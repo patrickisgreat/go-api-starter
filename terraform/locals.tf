@@ -10,7 +10,7 @@ locals {
 
   tags = {
     Application = var.system
-    GitRepo     = "github.com/patrickisgreat/go-api-starter"
+    GitRepo     = "github.com/patrickisgreat/pb-go-api-starter"
     ManagedBy   = "Terraform"
     Owner       = "principal-engineers-team"
     Environment = var.environment
@@ -39,7 +39,7 @@ locals {
     OTEL_SC_COMPONENT                    = "api"
     OTEL_SC_ENV                          = local.environment
     OTEL_SC_OWNER                        = "principal-engineers-team"
-    OTEL_SC_REPO                         = "patrickisgreat/go-api-starter"
+    OTEL_SC_REPO                         = "patrickisgreat/pb-go-api-starter"
     OTEL_SC_SYSTEM                       = var.system
     OTEL_SC_VERSION                      = var.commit_sha
     OTEL_SERVICE_NAME                    = var.system
@@ -49,7 +49,7 @@ locals {
   }
 
   base_account_name = nonsensitive(data.aws_ssm_parameter.base_account_name.value)
-  container_image   = "145582369311.dkr.ecr.eu-central-1.amazonaws.com/go-api-starter:${var.commit_sha}"
+  container_image   = "145582369311.dkr.ecr.eu-central-1.amazonaws.com/pb-go-api-starter:${var.commit_sha}"
   ecs_cluster       = "${local.base_account_name}-${local.aws_region}-${local.environment}"
 
   spot_capacity      = local.environment == "production" ? 0 : 90

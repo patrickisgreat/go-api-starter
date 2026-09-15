@@ -8,9 +8,9 @@ import (
 	"github.com/soundcloud/gokit/v2/logger"
 	"github.com/soundcloud/gokit/v2/opentelemetry/otelsetup"
 
-	"github.com/patrickisgreat/go-api-starter/internal/config"
-	"github.com/patrickisgreat/go-api-starter/internal/cookierepo"
-	"github.com/patrickisgreat/go-api-starter/internal/cookieservice"
+	"github.com/patrickisgreat/pb-go-api-starter/internal/config"
+	"github.com/patrickisgreat/pb-go-api-starter/internal/cookierepo"
+	"github.com/patrickisgreat/pb-go-api-starter/internal/cookieservice"
 )
 
 type ServerContext struct {

@@ -4,7 +4,7 @@ tmp_dir = "tmp"
 
 [build]
   args_bin = []
-  bin = "./cmd/app/bin/go-api-starter"
+  bin = "./cmd/app/bin/pb-go-api-starter"
   cmd = "task build"
   delay = 1000
   exclude_dir = ["tmp", "vendor", "testdata", "terraform", "cmd/app/bin", "internal/generated"]

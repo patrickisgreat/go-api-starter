@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/patrickisgreat/go-api-starter/internal/generated/go_api_starter/api"
+	"github.com/patrickisgreat/pb-go-api-starter/internal/generated/pb_go_api_starter/api"
 )
 
 func NewRouter(s api.TwirpServer) http.Handler {

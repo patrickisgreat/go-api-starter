@@ -5,7 +5,7 @@ import (
 
 	"github.com/twitchtv/twirp"
 
-	"github.com/patrickisgreat/go-api-starter/internal/cookierepo"
+	"github.com/patrickisgreat/pb-go-api-starter/internal/cookierepo"
 )
 
 type CookieService struct {

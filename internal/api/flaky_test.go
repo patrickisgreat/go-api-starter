@@ -8,10 +8,10 @@ import (
 	"github.com/soundcloud/gokit/v2/twirp/common_session"
 	"google.golang.org/protobuf/types/known/wrapperspb"
 
-	"github.com/patrickisgreat/go-api-starter/internal/appserver"
-	"github.com/patrickisgreat/go-api-starter/internal/cookierepo"
-	"github.com/patrickisgreat/go-api-starter/internal/cookieservice"
-	proto "github.com/patrickisgreat/go-api-starter/internal/generated/go_api_starter/api"
+	"github.com/patrickisgreat/pb-go-api-starter/internal/appserver"
+	"github.com/patrickisgreat/pb-go-api-starter/internal/cookierepo"
+	"github.com/patrickisgreat/pb-go-api-starter/internal/cookieservice"
+	proto "github.com/patrickisgreat/pb-go-api-starter/internal/generated/pb_go_api_starter/api"
 )
 
 func TestGetCookieFlakyHandlerFail(t *testing.T) {

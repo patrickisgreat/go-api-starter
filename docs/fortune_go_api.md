@@ -8,15 +8,15 @@
     - [RequestedFeature](#proto-patrickisgreat-common-session-RequestedFeature)
     - [UserSession](#proto-patrickisgreat-common-session-UserSession)
   
-- [go_api_starter_api.proto](#go_api_starter_api-proto)
-    - [GetCookieFlakyRequest](#proto-patrickisgreat-go_api_starter-api-GetCookieFlakyRequest)
-    - [GetCookieFlakyResponse](#proto-patrickisgreat-go_api_starter-api-GetCookieFlakyResponse)
-    - [GetCookieLateRequest](#proto-patrickisgreat-go_api_starter-api-GetCookieLateRequest)
-    - [GetCookieLateResponse](#proto-patrickisgreat-go_api_starter-api-GetCookieLateResponse)
-    - [GetCookieRequest](#proto-patrickisgreat-go_api_starter-api-GetCookieRequest)
-    - [GetCookieResponse](#proto-patrickisgreat-go_api_starter-api-GetCookieResponse)
+- [pb_go_api_starter_api.proto](#pb_go_api_starter_api-proto)
+    - [GetCookieFlakyRequest](#proto-patrickisgreat-pb_go_api_starter-api-GetCookieFlakyRequest)
+    - [GetCookieFlakyResponse](#proto-patrickisgreat-pb_go_api_starter-api-GetCookieFlakyResponse)
+    - [GetCookieLateRequest](#proto-patrickisgreat-pb_go_api_starter-api-GetCookieLateRequest)
+    - [GetCookieLateResponse](#proto-patrickisgreat-pb_go_api_starter-api-GetCookieLateResponse)
+    - [GetCookieRequest](#proto-patrickisgreat-pb_go_api_starter-api-GetCookieRequest)
+    - [GetCookieResponse](#proto-patrickisgreat-pb_go_api_starter-api-GetCookieResponse)
   
-    - [Fortune](#proto-patrickisgreat-go_api_starter-api-Fortune)
+    - [Fortune](#proto-patrickisgreat-pb_go_api_starter-api-Fortune)
   
 - [Scalar Value Types](#scalar-value-types)
 
@@ -92,14 +92,14 @@ Metadata about the interaction between a user and the systems
 
 
 
-<a name="go_api_starter_api-proto"></a>
+<a name="pb_go_api_starter_api-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## go_api_starter_api.proto
+## pb_go_api_starter_api.proto
 
 
 
-<a name="proto-patrickisgreat-go_api_starter-api-GetCookieFlakyRequest"></a>
+<a name="proto-patrickisgreat-pb_go_api_starter-api-GetCookieFlakyRequest"></a>
 
 ### GetCookieFlakyRequest
 
@@ -115,7 +115,7 @@ Metadata about the interaction between a user and the systems
 
 
 
-<a name="proto-patrickisgreat-go_api_starter-api-GetCookieFlakyResponse"></a>
+<a name="proto-patrickisgreat-pb_go_api_starter-api-GetCookieFlakyResponse"></a>
 
 ### GetCookieFlakyResponse
 
@@ -130,7 +130,7 @@ Metadata about the interaction between a user and the systems
 
 
 
-<a name="proto-patrickisgreat-go_api_starter-api-GetCookieLateRequest"></a>
+<a name="proto-patrickisgreat-pb_go_api_starter-api-GetCookieLateRequest"></a>
 
 ### GetCookieLateRequest
 
@@ -146,7 +146,7 @@ Metadata about the interaction between a user and the systems
 
 
 
-<a name="proto-patrickisgreat-go_api_starter-api-GetCookieLateResponse"></a>
+<a name="proto-patrickisgreat-pb_go_api_starter-api-GetCookieLateResponse"></a>
 
 ### GetCookieLateResponse
 
@@ -161,7 +161,7 @@ Metadata about the interaction between a user and the systems
 
 
 
-<a name="proto-patrickisgreat-go_api_starter-api-GetCookieRequest"></a>
+<a name="proto-patrickisgreat-pb_go_api_starter-api-GetCookieRequest"></a>
 
 ### GetCookieRequest
 
@@ -176,7 +176,7 @@ Metadata about the interaction between a user and the systems
 
 
 
-<a name="proto-patrickisgreat-go_api_starter-api-GetCookieResponse"></a>
+<a name="proto-patrickisgreat-pb_go_api_starter-api-GetCookieResponse"></a>
 
 ### GetCookieResponse
 
@@ -199,16 +199,16 @@ Note: always return a fortune cookie message, so no string wrapper type needed |
  
 
 
-<a name="proto-patrickisgreat-go_api_starter-api-Fortune"></a>
+<a name="proto-patrickisgreat-pb_go_api_starter-api-Fortune"></a>
 
 ### Fortune
 
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| GetCookie | [GetCookieRequest](#proto-patrickisgreat-go_api_starter-api-GetCookieRequest) | [GetCookieResponse](#proto-patrickisgreat-go_api_starter-api-GetCookieResponse) | Get a random fortune cookie message from fortune.txt |
-| GetCookieFlaky | [GetCookieFlakyRequest](#proto-patrickisgreat-go_api_starter-api-GetCookieFlakyRequest) | [GetCookieFlakyResponse](#proto-patrickisgreat-go_api_starter-api-GetCookieFlakyResponse) | Get a random fortune cookie message from fortune.txt. Sometimes this fails. |
-| GetCookieLate | [GetCookieLateRequest](#proto-patrickisgreat-go_api_starter-api-GetCookieLateRequest) | [GetCookieLateResponse](#proto-patrickisgreat-go_api_starter-api-GetCookieLateResponse) | Get a random fortune cookie message from fortune.txt, after the specified delay. |
+| GetCookie | [GetCookieRequest](#proto-patrickisgreat-pb_go_api_starter-api-GetCookieRequest) | [GetCookieResponse](#proto-patrickisgreat-pb_go_api_starter-api-GetCookieResponse) | Get a random fortune cookie message from fortune.txt |
+| GetCookieFlaky | [GetCookieFlakyRequest](#proto-patrickisgreat-pb_go_api_starter-api-GetCookieFlakyRequest) | [GetCookieFlakyResponse](#proto-patrickisgreat-pb_go_api_starter-api-GetCookieFlakyResponse) | Get a random fortune cookie message from fortune.txt. Sometimes this fails. |
+| GetCookieLate | [GetCookieLateRequest](#proto-patrickisgreat-pb_go_api_starter-api-GetCookieLateRequest) | [GetCookieLateResponse](#proto-patrickisgreat-pb_go_api_starter-api-GetCookieLateResponse) | Get a random fortune cookie message from fortune.txt, after the specified delay. |
 
  
 

@@ -3,9 +3,9 @@ package handlers
 import (
 	"context"
 
-	"github.com/patrickisgreat/go-api-starter/internal/api"
-	"github.com/patrickisgreat/go-api-starter/internal/appserver"
-	proto "github.com/patrickisgreat/go-api-starter/internal/generated/go_api_starter/api"
+	"github.com/patrickisgreat/pb-go-api-starter/internal/api"
+	"github.com/patrickisgreat/pb-go-api-starter/internal/appserver"
+	proto "github.com/patrickisgreat/pb-go-api-starter/internal/generated/pb_go_api_starter/api"
 )
 
 type Fortune struct {
