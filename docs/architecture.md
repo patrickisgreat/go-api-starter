@@ -1,32 +1,50 @@
 # Architecture
 
-![architecture diagram](images/architecture.svg "Architecture")
+```mermaid
+flowchart LR
+    client[Client] -->|HTTP POST /twirp/...| alb[Load balancer]
+    alb --> svc
+
+    subgraph svc[pb-go-api-starter on ECS]
+        direction TB
+        otel[OpenTelemetry HTTP wrapper] --> router[Router]
+        router --> health[/-/health/]
+        router --> twirp[Generated Twirp server]
+        twirp --> handlers[handlers.Quotes]
+        handlers --> api[api handlers: validation]
+        api --> service[quoteservice: rules, error codes]
+        service --> repo[quoterepo: embedded quotes.json]
+    end
+
+    svc -.->|OTLP traces, metrics, logs| collector[Telemetry backend]
+```
 
 ## Request path
 
-```
-HTTP POST /twirp/proto.patrickisgreat.pb_go_api_starter.api.Quotes/GetQuote
-  │
-  ▼
-instrumentation.InstrumentHandler          OpenTelemetry HTTP span and metrics
-  │
-  ▼
-appserver.NewRouter (http.ServeMux)        /twirp/... and /-/health
-  │
-  ▼
-generated Twirp server                     decode JSON or protobuf, route to method
-  │
-  ▼
-handlers.Quotes.GetQuote                   satisfies the generated interface
-  │
-  ▼
-api.GetQuoteHandler                        validate the request, orchestrate
-  │
-  ▼
-quoteservice.QuoteService.GetQuote         business rules, error translation
-  │
-  ▼
-quoterepo.QuoteRepository.Gimme            pick a random quote from embedded data
+```mermaid
+sequenceDiagram
+    autonumber
+    participant C as Client
+    participant O as OpenTelemetry wrapper
+    participant R as Router
+    participant T as Generated Twirp server
+    participant H as handlers.Quotes
+    participant A as api.GetQuoteHandler
+    participant S as quoteservice
+    participant Q as quoterepo
+
+    C->>O: POST /twirp/...Quotes/GetQuote
+    O->>R: start span, record metrics
+    R->>T: path matches /twirp/ prefix
+    T->>H: decode JSON or protobuf into GetQuoteRequest
+    H->>A: delegate with ServerContext
+    A->>A: validate user session URN
+    A->>S: GetQuote(ctx)
+    S->>Q: Gimme(ctx)
+    Q-->>S: random quote, or NoQuotesError
+    S-->>A: quote, or twirp internal error
+    A-->>T: GetQuoteResponse
+    T-->>C: 200 JSON, or Twirp error JSON with matching status
 ```
 
 Every layer only knows about the one below it. Nothing imports `handlers` except

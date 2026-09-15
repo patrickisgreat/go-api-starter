@@ -204,4 +204,21 @@ Backstage TechDocs. Serve it locally with `mkdocs serve` after
 
 ## Architecture
 
-![architecture diagram](docs/images/architecture.svg "Architecture")
+```mermaid
+flowchart LR
+    client[Client] -->|HTTP POST /twirp/...| alb[Load balancer]
+    alb --> svc
+
+    subgraph svc[pb-go-api-starter on ECS]
+        direction TB
+        otel[OpenTelemetry HTTP wrapper] --> router[Router]
+        router --> health[/-/health/]
+        router --> twirp[Generated Twirp server]
+        twirp --> handlers[handlers.Quotes]
+        handlers --> api[api handlers: validation]
+        api --> service[quoteservice: rules, error codes]
+        service --> repo[quoterepo: embedded quotes.json]
+    end
+
+    svc -.->|OTLP traces, metrics, logs| collector[Telemetry backend]
+```
