@@ -10,7 +10,7 @@ import (
 	proto "github.com/patrickisgreat/pb-go-api-starter/internal/generated/pb_go_api_starter/api"
 )
 
-func GetCookieFlakyHandler(ctx context.Context, serverContext *appserver.ServerContext, request *proto.GetCookieFlakyRequest) (*proto.GetCookieFlakyResponse, error) {
+func GetQuoteFlakyHandler(ctx context.Context, serverContext *appserver.ServerContext, request *proto.GetQuoteFlakyRequest) (*proto.GetQuoteFlakyResponse, error) {
 	// validate user session
 	err := validateUserSession(request.UserSession)
 	if err != nil {
@@ -21,11 +21,11 @@ func GetCookieFlakyHandler(ctx context.Context, serverContext *appserver.ServerC
 		return nil, twirp.InternalError("flaky error")
 	}
 
-	cookieService := serverContext.CookieService
+	quoteService := serverContext.QuoteService
 
-	cookie, err := cookieService.GetCookie(ctx)
+	quote, err := quoteService.GetQuote(ctx)
 
-	return &proto.GetCookieFlakyResponse{
-		FortuneCookieMessage: cookie,
+	return &proto.GetQuoteFlakyResponse{
+		Quote: quote,
 	}, err
 }

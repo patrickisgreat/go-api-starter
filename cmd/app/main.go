@@ -18,14 +18,14 @@ func main() {
 
 	appserver.InitContext(ctx)
 
-	fortuneServer := api.NewFortuneServer(
-		&handlers.Fortune{ServerContext: appserver.GetServerContext()},
+	quotesServer := api.NewQuotesServer(
+		&handlers.Quotes{ServerContext: appserver.GetServerContext()},
 		instrumentation.WithTwirpServerInterceptor(),
 	)
-	router := appserver.NewRouter(fortuneServer)
+	router := appserver.NewRouter(quotesServer)
 
 	appserver.Start(ctx, &appserver.StartParams{
-		Handler: instrumentation.InstrumentHandler("Fortune", router),
+		Handler: instrumentation.InstrumentHandler("Quotes", router),
 		Addr:    net.JoinHostPort(config.Config.Host, fmt.Sprintf("%d", config.Config.Port)),
 	})
 }

@@ -1,6 +1,6 @@
 # files
 .air.toml
-catalog-info.yml
+catalog-info.yaml
 manifest.json
 Taskfile.yml
 README.md

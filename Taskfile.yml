@@ -86,7 +86,7 @@ tasks:
       - .env/**
     env:
       ENV: test
-      FORTUNE_HOST: 127.0.0.1
+      API_HOST: 127.0.0.1
     cmds:
       - go test -v -p 1 -timeout 60s $(go list ./... | grep -v -e /rpc -e /end_to_end)
 
@@ -146,7 +146,7 @@ tasks:
       - internal/generated/**
     cmds:
       - rm -rf internal/generated && mkdir -p internal/generated
-      - protoc fortune_go_api.proto --proto_path=rpc --go_out=./internal/generated --twirp_out=./internal/generated
+      - protoc pb_go_api_starter.proto --proto_path=rpc --go_out=./internal/generated --twirp_out=./internal/generated
 
   gen:docs:
     desc: Generate rpc docs
@@ -155,8 +155,8 @@ tasks:
     generates:
       - docs/**
     cmds:
-      - rm -rf docs/fortune_go_api.md
-      - docker run --platform=linux/amd64 --rm -v $(pwd)/docs:/out -v $(pwd)/rpc:/protos pseudomuto/protoc-gen-doc --doc_opt=markdown,fortune_go_api.md
+      - rm -rf docs/pb_go_api_starter.md
+      - docker run --platform=linux/amd64 --rm -v $(pwd)/docs:/out -v $(pwd)/rpc:/protos pseudomuto/protoc-gen-doc --doc_opt=markdown,pb_go_api_starter.md
 
   upgrade:
     desc: Bump dependencies

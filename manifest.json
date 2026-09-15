@@ -1,5 +1,5 @@
 {
   "name": "pb-go-api-starter",
-  "description": "Tells your fortune",
+  "description": "A random quotes service",
   "owner": "patrickisgreat"
 }

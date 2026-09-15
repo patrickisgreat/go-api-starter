@@ -8,15 +8,15 @@
     - [RequestedFeature](#proto-patrickisgreat-common-session-RequestedFeature)
     - [UserSession](#proto-patrickisgreat-common-session-UserSession)
   
-- [pb_go_api_starter_api.proto](#pb_go_api_starter_api-proto)
-    - [GetCookieFlakyRequest](#proto-patrickisgreat-pb_go_api_starter-api-GetCookieFlakyRequest)
-    - [GetCookieFlakyResponse](#proto-patrickisgreat-pb_go_api_starter-api-GetCookieFlakyResponse)
-    - [GetCookieLateRequest](#proto-patrickisgreat-pb_go_api_starter-api-GetCookieLateRequest)
-    - [GetCookieLateResponse](#proto-patrickisgreat-pb_go_api_starter-api-GetCookieLateResponse)
-    - [GetCookieRequest](#proto-patrickisgreat-pb_go_api_starter-api-GetCookieRequest)
-    - [GetCookieResponse](#proto-patrickisgreat-pb_go_api_starter-api-GetCookieResponse)
+- [pb_go_api_starter.proto](#pb_go_api_starter-proto)
+    - [GetQuoteFlakyRequest](#proto-patrickisgreat-pb_go_api_starter-api-GetQuoteFlakyRequest)
+    - [GetQuoteFlakyResponse](#proto-patrickisgreat-pb_go_api_starter-api-GetQuoteFlakyResponse)
+    - [GetQuoteLateRequest](#proto-patrickisgreat-pb_go_api_starter-api-GetQuoteLateRequest)
+    - [GetQuoteLateResponse](#proto-patrickisgreat-pb_go_api_starter-api-GetQuoteLateResponse)
+    - [GetQuoteRequest](#proto-patrickisgreat-pb_go_api_starter-api-GetQuoteRequest)
+    - [GetQuoteResponse](#proto-patrickisgreat-pb_go_api_starter-api-GetQuoteResponse)
   
-    - [Fortune](#proto-patrickisgreat-pb_go_api_starter-api-Fortune)
+    - [Quotes](#proto-patrickisgreat-pb_go_api_starter-api-Quotes)
   
 - [Scalar Value Types](#scalar-value-types)
 
@@ -65,7 +65,7 @@ the geographic location, determined from IP geolocation.
 <a name="proto-patrickisgreat-common-session-UserSession"></a>
 
 ### UserSession
-Metadata about the interaction between a user and the systems
+Metadata about the interaction between a user and the system
 
 
 | Field | Type | Label | Description |
@@ -75,7 +75,7 @@ Metadata about the interaction between a user and the systems
 | geo | [Geo](#proto-patrickisgreat-common-session-Geo) |  | the geographic location of the user |
 | scopes | [string](#string) | repeated | OAuth scopes for this session |
 | features | [string](#string) | repeated | business features that are enabled for this session |
-| app_variant_ids | [int32](#int32) | repeated | propagate variants for  |
+| app_variant_ids | [int32](#int32) | repeated | propagate variants for A/B testing |
 | app_requested_features | [RequestedFeature](#proto-patrickisgreat-common-session-RequestedFeature) | repeated | features requested in Firabase A/B tests |
 
 
@@ -92,22 +92,22 @@ Metadata about the interaction between a user and the systems
 
 
 
-<a name="pb_go_api_starter_api-proto"></a>
+<a name="pb_go_api_starter-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## pb_go_api_starter_api.proto
+## pb_go_api_starter.proto
 
 
 
-<a name="proto-patrickisgreat-pb_go_api_starter-api-GetCookieFlakyRequest"></a>
+<a name="proto-patrickisgreat-pb_go_api_starter-api-GetQuoteFlakyRequest"></a>
 
-### GetCookieFlakyRequest
+### GetQuoteFlakyRequest
 
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| user_session | [proto.patrickisgreat.common.session.UserSession](#proto-patrickisgreat-common-session-UserSession) |  | The session of the user requesting a fortune. |
+| user_session | [proto.patrickisgreat.common.session.UserSession](#proto-patrickisgreat-common-session-UserSession) |  | The session of the user requesting a quote. |
 | fail | [bool](#bool) |  | Setting to true causes the request to fail for sure (i.e., not to just randomly fail) |
 
 
@@ -115,30 +115,30 @@ Metadata about the interaction between a user and the systems
 
 
 
-<a name="proto-patrickisgreat-pb_go_api_starter-api-GetCookieFlakyResponse"></a>
+<a name="proto-patrickisgreat-pb_go_api_starter-api-GetQuoteFlakyResponse"></a>
 
-### GetCookieFlakyResponse
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| fortune_cookie_message | [string](#string) |  | A random fortune cookie message from fortune.txt |
-
-
-
-
-
-
-<a name="proto-patrickisgreat-pb_go_api_starter-api-GetCookieLateRequest"></a>
-
-### GetCookieLateRequest
+### GetQuoteFlakyResponse
 
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| user_session | [proto.patrickisgreat.common.session.UserSession](#proto-patrickisgreat-common-session-UserSession) |  | The session of the user requesting a fortune. |
+| quote | [string](#string) |  | A random quote from the embedded quote collection |
+
+
+
+
+
+
+<a name="proto-patrickisgreat-pb_go_api_starter-api-GetQuoteLateRequest"></a>
+
+### GetQuoteLateRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user_session | [proto.patrickisgreat.common.session.UserSession](#proto-patrickisgreat-common-session-UserSession) |  | The session of the user requesting a quote. |
 | delay_ms | [google.protobuf.Int32Value](#google-protobuf-Int32Value) |  | Number of milliseconds to wait before returning the response |
 
 
@@ -146,47 +146,47 @@ Metadata about the interaction between a user and the systems
 
 
 
-<a name="proto-patrickisgreat-pb_go_api_starter-api-GetCookieLateResponse"></a>
+<a name="proto-patrickisgreat-pb_go_api_starter-api-GetQuoteLateResponse"></a>
 
-### GetCookieLateResponse
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| fortune_cookie_message | [string](#string) |  | A random fortune cookie message from fortune.txt |
-
-
-
-
-
-
-<a name="proto-patrickisgreat-pb_go_api_starter-api-GetCookieRequest"></a>
-
-### GetCookieRequest
+### GetQuoteLateResponse
 
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| user_session | [proto.patrickisgreat.common.session.UserSession](#proto-patrickisgreat-common-session-UserSession) |  | The session of the user requesting a fortune. |
+| quote | [string](#string) |  | A random quote from the embedded quote collection |
 
 
 
 
 
 
-<a name="proto-patrickisgreat-pb_go_api_starter-api-GetCookieResponse"></a>
+<a name="proto-patrickisgreat-pb_go_api_starter-api-GetQuoteRequest"></a>
 
-### GetCookieResponse
+### GetQuoteRequest
 
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| fortune_cookie_message | [string](#string) |  | A random fortune cookie message from fortune.txt
+| user_session | [proto.patrickisgreat.common.session.UserSession](#proto-patrickisgreat-common-session-UserSession) |  | The session of the user requesting a quote. |
 
-Note: always return a fortune cookie message, so no string wrapper type needed |
+
+
+
+
+
+<a name="proto-patrickisgreat-pb_go_api_starter-api-GetQuoteResponse"></a>
+
+### GetQuoteResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| quote | [string](#string) |  | A random quote from the embedded quote collection
+
+Note: a quote is always returned, so no string wrapper type is needed |
 
 
 
@@ -199,16 +199,16 @@ Note: always return a fortune cookie message, so no string wrapper type needed |
  
 
 
-<a name="proto-patrickisgreat-pb_go_api_starter-api-Fortune"></a>
+<a name="proto-patrickisgreat-pb_go_api_starter-api-Quotes"></a>
 
-### Fortune
+### Quotes
 
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| GetCookie | [GetCookieRequest](#proto-patrickisgreat-pb_go_api_starter-api-GetCookieRequest) | [GetCookieResponse](#proto-patrickisgreat-pb_go_api_starter-api-GetCookieResponse) | Get a random fortune cookie message from fortune.txt |
-| GetCookieFlaky | [GetCookieFlakyRequest](#proto-patrickisgreat-pb_go_api_starter-api-GetCookieFlakyRequest) | [GetCookieFlakyResponse](#proto-patrickisgreat-pb_go_api_starter-api-GetCookieFlakyResponse) | Get a random fortune cookie message from fortune.txt. Sometimes this fails. |
-| GetCookieLate | [GetCookieLateRequest](#proto-patrickisgreat-pb_go_api_starter-api-GetCookieLateRequest) | [GetCookieLateResponse](#proto-patrickisgreat-pb_go_api_starter-api-GetCookieLateResponse) | Get a random fortune cookie message from fortune.txt, after the specified delay. |
+| GetQuote | [GetQuoteRequest](#proto-patrickisgreat-pb_go_api_starter-api-GetQuoteRequest) | [GetQuoteResponse](#proto-patrickisgreat-pb_go_api_starter-api-GetQuoteResponse) | Get a random quote. |
+| GetQuoteFlaky | [GetQuoteFlakyRequest](#proto-patrickisgreat-pb_go_api_starter-api-GetQuoteFlakyRequest) | [GetQuoteFlakyResponse](#proto-patrickisgreat-pb_go_api_starter-api-GetQuoteFlakyResponse) | Get a random quote. Fails roughly half the time, or always when `fail` is set. Useful for exercising error handling and alerting. |
+| GetQuoteLate | [GetQuoteLateRequest](#proto-patrickisgreat-pb_go_api_starter-api-GetQuoteLateRequest) | [GetQuoteLateResponse](#proto-patrickisgreat-pb_go_api_starter-api-GetQuoteLateResponse) | Get a random quote after the specified delay (random 100-1000ms when unset). Useful for exercising latency alerting. |
 
  
 

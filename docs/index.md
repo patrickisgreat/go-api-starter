@@ -1,4 +1,4 @@
-# Fortune
+# pb-go-api-starter
 
 A random quotes service.
 

@@ -9,26 +9,26 @@ import (
 	"google.golang.org/protobuf/types/known/wrapperspb"
 
 	"github.com/patrickisgreat/pb-go-api-starter/internal/appserver"
-	"github.com/patrickisgreat/pb-go-api-starter/internal/cookierepo"
-	"github.com/patrickisgreat/pb-go-api-starter/internal/cookieservice"
 	proto "github.com/patrickisgreat/pb-go-api-starter/internal/generated/pb_go_api_starter/api"
+	"github.com/patrickisgreat/pb-go-api-starter/internal/quoterepo"
+	"github.com/patrickisgreat/pb-go-api-starter/internal/quoteservice"
 )
 
-func TestGetCookieHandler(t *testing.T) {
+func TestGetQuoteHandler(t *testing.T) {
 	c := qt.New(t)
 
-	// Mock the CookieService
-	mockService := cookieservice.NewCookieService(&cookierepo.CookieRepository{
-		Fortunes: []string{"foo"},
+	// Build a QuoteService backed by a single known quote
+	quoteService := quoteservice.NewQuoteService(&quoterepo.QuoteRepository{
+		Quotes: []string{"foo"},
 	})
 
 	// Create a mock ServerContext
 	serverContext := &appserver.ServerContext{
-		CookieService: mockService,
+		QuoteService: quoteService,
 	}
 
 	// Create a request
-	request := &proto.GetCookieRequest{
+	request := &proto.GetQuoteRequest{
 		UserSession: &common_session.UserSession{
 			UserUrn:  &wrapperspb.StringValue{Value: "myapp:users:2"},
 			Features: []string{},
@@ -36,29 +36,29 @@ func TestGetCookieHandler(t *testing.T) {
 	}
 
 	// Call the handler
-	response, err := GetCookieHandler(context.Background(), serverContext, request)
+	response, err := GetQuoteHandler(context.Background(), serverContext, request)
 
 	// Assert the results
 	c.Assert(err, qt.IsNil)
 	c.Assert(response, qt.Not(qt.IsNil))
-	c.Assert(response.FortuneCookieMessage, qt.Equals, "foo")
+	c.Assert(response.Quote, qt.Equals, "foo")
 }
 
-func TestGetCookieHandler_InvalidSession(t *testing.T) {
+func TestGetQuoteHandler_InvalidSession(t *testing.T) {
 	c := qt.New(t)
 
-	// Mock the CookieService
-	mockService := cookieservice.NewCookieService(&cookierepo.CookieRepository{
-		Fortunes: []string{"foo"},
+	// Build a QuoteService backed by a single known quote
+	quoteService := quoteservice.NewQuoteService(&quoterepo.QuoteRepository{
+		Quotes: []string{"foo"},
 	})
 
 	// Create a mock ServerContext
 	serverContext := &appserver.ServerContext{
-		CookieService: mockService,
+		QuoteService: quoteService,
 	}
 
 	// Create a request
-	request := &proto.GetCookieRequest{
+	request := &proto.GetQuoteRequest{
 		UserSession: &common_session.UserSession{
 			UserUrn:  &wrapperspb.StringValue{Value: "myapp:tracks:2"},
 			Features: []string{},
@@ -66,7 +66,7 @@ func TestGetCookieHandler_InvalidSession(t *testing.T) {
 	}
 
 	// Call the handler
-	_, err := GetCookieHandler(context.Background(), serverContext, request)
+	_, err := GetQuoteHandler(context.Background(), serverContext, request)
 
 	// Assert the results
 	c.Assert(err, qt.IsNotNil)

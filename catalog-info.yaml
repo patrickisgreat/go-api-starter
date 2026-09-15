@@ -5,9 +5,9 @@ spec:
   lifecycle: production
   owner: principal-engineers-team
   definition:
-    $text: ./rpc/fortune_go_api.proto
+    $text: ./rpc/pb_go_api_starter.proto
 metadata:
-  name: fortune_go_api.proto
+  name: pb_go_api_starter.proto
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Component
@@ -16,10 +16,10 @@ spec:
   lifecycle: production
   owner: principal-engineers-team
   providesApis:
-    - fortune_go_api.proto
+    - pb_go_api_starter.proto
 metadata:
   name: pb-go-api-starter
-  description: Tells your fortune
+  description: A random quotes service
   tags:
     - golden-path
     - go

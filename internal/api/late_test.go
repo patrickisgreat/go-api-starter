@@ -11,26 +11,26 @@ import (
 	"google.golang.org/protobuf/types/known/wrapperspb"
 
 	"github.com/patrickisgreat/pb-go-api-starter/internal/appserver"
-	"github.com/patrickisgreat/pb-go-api-starter/internal/cookierepo"
-	"github.com/patrickisgreat/pb-go-api-starter/internal/cookieservice"
 	proto "github.com/patrickisgreat/pb-go-api-starter/internal/generated/pb_go_api_starter/api"
+	"github.com/patrickisgreat/pb-go-api-starter/internal/quoterepo"
+	"github.com/patrickisgreat/pb-go-api-starter/internal/quoteservice"
 )
 
-func TestGetCookieLateHandler(t *testing.T) {
+func TestGetQuoteLateHandler(t *testing.T) {
 	c := qt.New(t)
 
-	// Mock the CookieService
-	mockService := cookieservice.NewCookieService(&cookierepo.CookieRepository{
-		Fortunes: []string{"foo"},
+	// Build a QuoteService backed by a single known quote
+	quoteService := quoteservice.NewQuoteService(&quoterepo.QuoteRepository{
+		Quotes: []string{"foo"},
 	})
 
 	// Create a mock ServerContext
 	serverContext := &appserver.ServerContext{
-		CookieService: mockService,
+		QuoteService: quoteService,
 	}
 
 	// Create a request
-	request := &proto.GetCookieLateRequest{
+	request := &proto.GetQuoteLateRequest{
 		UserSession: &common_session.UserSession{
 			UserUrn:  &wrapperspb.StringValue{Value: "myapp:users:2"},
 			Features: []string{},
@@ -42,12 +42,12 @@ func TestGetCookieLateHandler(t *testing.T) {
 	s := time.Now()
 
 	// Call the handler
-	response, err := GetCookieLateHandler(context.Background(), serverContext, request)
+	response, err := GetQuoteLateHandler(context.Background(), serverContext, request)
 
 	// Assert the results
 	c.Assert(err, qt.IsNil)
 	c.Assert(response, qt.Not(qt.IsNil))
-	c.Assert(response.FortuneCookieMessage, qt.Equals, "foo")
+	c.Assert(response.Quote, qt.Equals, "foo")
 
 	f := time.Since(s)
 	if f.Milliseconds() <= int64(500) {
@@ -56,21 +56,21 @@ func TestGetCookieLateHandler(t *testing.T) {
 	c.Assert(f.Milliseconds() >= int64(500), qt.IsTrue)
 }
 
-func TestGetCookieLateHandler_InvalidSession(t *testing.T) {
+func TestGetQuoteLateHandler_InvalidSession(t *testing.T) {
 	c := qt.New(t)
 
-	// Mock the CookieService
-	mockService := cookieservice.NewCookieService(&cookierepo.CookieRepository{
-		Fortunes: []string{"foo"},
+	// Build a QuoteService backed by a single known quote
+	quoteService := quoteservice.NewQuoteService(&quoterepo.QuoteRepository{
+		Quotes: []string{"foo"},
 	})
 
 	// Create a mock ServerContext
 	serverContext := &appserver.ServerContext{
-		CookieService: mockService,
+		QuoteService: quoteService,
 	}
 
 	// Create a request
-	request := &proto.GetCookieLateRequest{
+	request := &proto.GetQuoteLateRequest{
 		UserSession: &common_session.UserSession{
 			UserUrn:  &wrapperspb.StringValue{Value: "myapp:tracks:2"},
 			Features: []string{},
@@ -78,7 +78,7 @@ func TestGetCookieLateHandler_InvalidSession(t *testing.T) {
 	}
 
 	// Call the handler
-	_, err := GetCookieLateHandler(context.Background(), serverContext, request)
+	_, err := GetQuoteLateHandler(context.Background(), serverContext, request)
 
 	// Assert the results
 	c.Assert(err, qt.IsNotNil)

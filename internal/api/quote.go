@@ -7,18 +7,18 @@ import (
 	proto "github.com/patrickisgreat/pb-go-api-starter/internal/generated/pb_go_api_starter/api"
 )
 
-func GetCookieHandler(ctx context.Context, serverContext *appserver.ServerContext, request *proto.GetCookieRequest) (*proto.GetCookieResponse, error) {
+func GetQuoteHandler(ctx context.Context, serverContext *appserver.ServerContext, request *proto.GetQuoteRequest) (*proto.GetQuoteResponse, error) {
 	// validate user session
 	err := validateUserSession(request.GetUserSession())
 	if err != nil {
 		return nil, err
 	}
 
-	cookieService := serverContext.CookieService
+	quoteService := serverContext.QuoteService
 
-	cookie, err := cookieService.GetCookie(ctx)
+	quote, err := quoteService.GetQuote(ctx)
 
-	return &proto.GetCookieResponse{
-		FortuneCookieMessage: cookie,
+	return &proto.GetQuoteResponse{
+		Quote: quote,
 	}, err
 }

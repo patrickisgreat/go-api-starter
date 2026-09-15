@@ -9,7 +9,7 @@ import (
 	proto "github.com/patrickisgreat/pb-go-api-starter/internal/generated/pb_go_api_starter/api"
 )
 
-func GetCookieLateHandler(ctx context.Context, serverContext *appserver.ServerContext, request *proto.GetCookieLateRequest) (*proto.GetCookieLateResponse, error) {
+func GetQuoteLateHandler(ctx context.Context, serverContext *appserver.ServerContext, request *proto.GetQuoteLateRequest) (*proto.GetQuoteLateResponse, error) {
 	// validate user session
 	err := validateUserSession(request.UserSession)
 	if err != nil {
@@ -23,11 +23,11 @@ func GetCookieLateHandler(ctx context.Context, serverContext *appserver.ServerCo
 
 	time.Sleep(time.Duration(delay) * time.Millisecond)
 
-	cookieService := serverContext.CookieService
+	quoteService := serverContext.QuoteService
 
-	cookie, err := cookieService.GetCookie(ctx)
+	quote, err := quoteService.GetQuote(ctx)
 
-	return &proto.GetCookieLateResponse{
-		FortuneCookieMessage: cookie,
+	return &proto.GetQuoteLateResponse{
+		Quote: quote,
 	}, err
 }
