@@ -17,7 +17,7 @@ variable "environment" {
 variable "system" {
   description = "The name of the system"
   type        = string
-  default     = "go-api-starter"
+  default     = "pb-go-api-starter"
 }
 
 variable "cpu" {
@@ -82,7 +82,7 @@ variable "alerts_enabled" {
 }
 
 variable "alerts_runbook_url" {
-  description = "The go-api-starter runbook URL"
+  description = "The pb-go-api-starter runbook URL"
   type        = string
   default     = ""
 }

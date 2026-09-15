@@ -3,23 +3,23 @@ package handlers
 import (
 	"context"
 
-	"github.com/patrickisgreat/go-api-starter/internal/api"
-	"github.com/patrickisgreat/go-api-starter/internal/appserver"
-	proto "github.com/patrickisgreat/go-api-starter/internal/generated/go_api_starter/api"
+	"github.com/patrickisgreat/pb-go-api-starter/internal/api"
+	"github.com/patrickisgreat/pb-go-api-starter/internal/appserver"
+	proto "github.com/patrickisgreat/pb-go-api-starter/internal/generated/pb_go_api_starter/api"
 )
 
-type Fortune struct {
+type Quotes struct {
 	ServerContext *appserver.ServerContext
 }
 
-func (h *Fortune) GetCookie(ctx context.Context, request *proto.GetCookieRequest) (*proto.GetCookieResponse, error) {
-	return api.GetCookieHandler(ctx, h.ServerContext, request)
+func (h *Quotes) GetQuote(ctx context.Context, request *proto.GetQuoteRequest) (*proto.GetQuoteResponse, error) {
+	return api.GetQuoteHandler(ctx, h.ServerContext, request)
 }
 
-func (h *Fortune) GetCookieFlaky(ctx context.Context, request *proto.GetCookieFlakyRequest) (*proto.GetCookieFlakyResponse, error) {
-	return api.GetCookieFlakyHandler(ctx, h.ServerContext, request)
+func (h *Quotes) GetQuoteFlaky(ctx context.Context, request *proto.GetQuoteFlakyRequest) (*proto.GetQuoteFlakyResponse, error) {
+	return api.GetQuoteFlakyHandler(ctx, h.ServerContext, request)
 }
 
-func (h *Fortune) GetCookieLate(ctx context.Context, request *proto.GetCookieLateRequest) (*proto.GetCookieLateResponse, error) {
-	return api.GetCookieLateHandler(ctx, h.ServerContext, request)
+func (h *Quotes) GetQuoteLate(ctx context.Context, request *proto.GetQuoteLateRequest) (*proto.GetQuoteLateResponse, error) {
+	return api.GetQuoteLateHandler(ctx, h.ServerContext, request)
 }

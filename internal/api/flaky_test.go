@@ -8,27 +8,27 @@ import (
 	"github.com/soundcloud/gokit/v2/twirp/common_session"
 	"google.golang.org/protobuf/types/known/wrapperspb"
 
-	"github.com/patrickisgreat/go-api-starter/internal/appserver"
-	"github.com/patrickisgreat/go-api-starter/internal/cookierepo"
-	"github.com/patrickisgreat/go-api-starter/internal/cookieservice"
-	proto "github.com/patrickisgreat/go-api-starter/internal/generated/go_api_starter/api"
+	"github.com/patrickisgreat/pb-go-api-starter/internal/appserver"
+	proto "github.com/patrickisgreat/pb-go-api-starter/internal/generated/pb_go_api_starter/api"
+	"github.com/patrickisgreat/pb-go-api-starter/internal/quoterepo"
+	"github.com/patrickisgreat/pb-go-api-starter/internal/quoteservice"
 )
 
-func TestGetCookieFlakyHandlerFail(t *testing.T) {
+func TestGetQuoteFlakyHandlerFail(t *testing.T) {
 	c := qt.New(t)
 
-	// Mock the CookieService
-	mockService := cookieservice.NewCookieService(&cookierepo.CookieRepository{
-		Fortunes: []string{"foo"},
+	// Build a QuoteService backed by a single known quote
+	quoteService := quoteservice.NewQuoteService(&quoterepo.QuoteRepository{
+		Quotes: []string{"foo"},
 	})
 
 	// Create a mock ServerContext
 	serverContext := &appserver.ServerContext{
-		CookieService: mockService,
+		QuoteService: quoteService,
 	}
 
 	// Create a request
-	request := &proto.GetCookieFlakyRequest{
+	request := &proto.GetQuoteFlakyRequest{
 		UserSession: &common_session.UserSession{
 			UserUrn:  &wrapperspb.StringValue{Value: "myapp:users:2"},
 			Features: []string{},
@@ -37,28 +37,28 @@ func TestGetCookieFlakyHandlerFail(t *testing.T) {
 	}
 
 	// Call the handler
-	_, err := GetCookieFlakyHandler(context.Background(), serverContext, request)
+	_, err := GetQuoteFlakyHandler(context.Background(), serverContext, request)
 
 	// Assert the results
 	c.Assert(err, qt.IsNotNil)
 	c.Assert(err.Error(), qt.Equals, "twirp error internal: flaky error")
 }
 
-func TestGetCookieFlakyHandler_InvalidSession(t *testing.T) {
+func TestGetQuoteFlakyHandler_InvalidSession(t *testing.T) {
 	c := qt.New(t)
 
-	// Mock the CookieService
-	mockService := cookieservice.NewCookieService(&cookierepo.CookieRepository{
-		Fortunes: []string{"foo"},
+	// Build a QuoteService backed by a single known quote
+	quoteService := quoteservice.NewQuoteService(&quoterepo.QuoteRepository{
+		Quotes: []string{"foo"},
 	})
 
 	// Create a mock ServerContext
 	serverContext := &appserver.ServerContext{
-		CookieService: mockService,
+		QuoteService: quoteService,
 	}
 
 	// Create a request
-	request := &proto.GetCookieFlakyRequest{
+	request := &proto.GetQuoteFlakyRequest{
 		UserSession: &common_session.UserSession{
 			UserUrn:  &wrapperspb.StringValue{Value: "myapp:tracks:2"},
 			Features: []string{},
@@ -66,7 +66,7 @@ func TestGetCookieFlakyHandler_InvalidSession(t *testing.T) {
 	}
 
 	// Call the handler
-	_, err := GetCookieFlakyHandler(context.Background(), serverContext, request)
+	_, err := GetQuoteFlakyHandler(context.Background(), serverContext, request)
 
 	// Assert the results
 	c.Assert(err, qt.IsNotNil)

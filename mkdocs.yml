@@ -1,6 +1,6 @@
-site_name: go-api-starter
-repo_name: go-api-starter
-repo_url: https://github.com/patrickisgreat/go-api-starter
+site_name: pb-go-api-starter
+repo_name: pb-go-api-starter
+repo_url: https://github.com/patrickisgreat/pb-go-api-starter
 dev_addr: 0.0.0.0:8000
 plugins:
   - search

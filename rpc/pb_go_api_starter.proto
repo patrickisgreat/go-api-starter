@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+package proto.patrickisgreat.pb_go_api_starter.api;
+
+option go_package="pb_go_api_starter/api";
+
+import "google/protobuf/wrappers.proto";
+import "common_session.proto";
+
+/*
+Naming convention for proto rpc, request, and response messages is shown at the top of this post:
+
+https://medium.com/@akhaku/protobuf-definition-best-practices-87f281576f31
+
+with elaboration in points 1 and 3.
+
+RPC + request and response message naming convention:
+
+1) RPC names should always begin with a verb (e.g. Get, List, Create, Update, Delete, Send, Ping, Check).
+
+2) An RPC called DoFoo should have this definition in proto IDL:
+
+  rpc DoFoo (DoFooRequest) returns (DoFooResponse) {}
+*/
+
+
+message GetQuoteRequest {
+  // The session of the user requesting a quote.
+  proto.patrickisgreat.common.session.UserSession user_session = 1;
+}
+
+message GetQuoteResponse {
+    /* A random quote from the embedded quote collection */
+    string quote = 1; // Note: a quote is always returned, so no string wrapper type is needed
+}
+
+
+message GetQuoteFlakyRequest {
+    // The session of the user requesting a quote.
+    proto.patrickisgreat.common.session.UserSession user_session = 1;
+    /* Setting to true causes the request to fail for sure (i.e., not to just randomly fail) */
+    bool fail = 2;
+}
+
+message GetQuoteFlakyResponse {
+    /* A random quote from the embedded quote collection */
+    string quote = 1;
+}
+
+
+message GetQuoteLateRequest {
+    // The session of the user requesting a quote.
+    proto.patrickisgreat.common.session.UserSession user_session = 1;
+    /* Number of milliseconds to wait before returning the response */
+    google.protobuf.Int32Value delay_ms = 2;
+}
+
+message GetQuoteLateResponse {
+    /* A random quote from the embedded quote collection */
+    string quote = 1;
+}
+
+service Quotes {
+    /* Get a random quote. */
+    rpc GetQuote (GetQuoteRequest) returns (GetQuoteResponse) {
+    }
+
+    /* Get a random quote. Fails roughly half the time, or always when `fail` is set. Useful for exercising error handling and alerting. */
+    rpc GetQuoteFlaky (GetQuoteFlakyRequest) returns (GetQuoteFlakyResponse) {
+    }
+
+    /* Get a random quote after the specified delay (random 100-1000ms when unset). Useful for exercising latency alerting. */
+    rpc GetQuoteLate (GetQuoteLateRequest) returns (GetQuoteLateResponse) {
+    }
+}

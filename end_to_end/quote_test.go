@@ -7,10 +7,10 @@ import (
 	qt "github.com/frankban/quicktest"
 )
 
-func TestGetCookie(t *testing.T) {
+func TestGetQuote(t *testing.T) {
 	c := qt.New(t)
 
-	url := fortuneHost + "/twirp/proto.patrickisgreat.go_api_starter.api.Fortune/GetCookie"
+	url := apiHost + "/twirp/proto.patrickisgreat.pb_go_api_starter.api.Quotes/GetQuote"
 	payload := map[string]interface{}{
 		"user_session": map[string]interface{}{
 			"user_urn": "myapp:users:2",
@@ -20,13 +20,13 @@ func TestGetCookie(t *testing.T) {
 	response, status, err := postRequest(url, payload)
 	c.Assert(err, qt.IsNil)
 	c.Assert(status, qt.Equals, 200)
-	c.Assert(response["fortune_cookie_message"], qt.IsNotNil)
+	c.Assert(response["quote"], qt.IsNotNil)
 }
 
-func TestGetCookieFlaky(t *testing.T) {
+func TestGetQuoteFlaky(t *testing.T) {
 	c := qt.New(t)
 
-	url := fortuneHost + "/twirp/proto.patrickisgreat.go_api_starter.api.Fortune/GetCookieFlaky"
+	url := apiHost + "/twirp/proto.patrickisgreat.pb_go_api_starter.api.Quotes/GetQuoteFlaky"
 	payload := map[string]interface{}{
 		"user_session": map[string]interface{}{
 			"user_urn": "myapp:users:2",
@@ -40,10 +40,10 @@ func TestGetCookieFlaky(t *testing.T) {
 	c.Assert(response["msg"], qt.Equals, "flaky error")
 }
 
-func TestGetCookieLate(t *testing.T) {
+func TestGetQuoteLate(t *testing.T) {
 	c := qt.New(t)
 
-	url := fortuneHost + "/twirp/proto.patrickisgreat.go_api_starter.api.Fortune/GetCookieLate"
+	url := apiHost + "/twirp/proto.patrickisgreat.pb_go_api_starter.api.Quotes/GetQuoteLate"
 	payload := map[string]interface{}{
 		"user_session": map[string]interface{}{
 			"user_urn": "myapp:users:2",
@@ -55,7 +55,7 @@ func TestGetCookieLate(t *testing.T) {
 	response, status, err := postRequest(url, payload)
 	c.Assert(err, qt.IsNil)
 	c.Assert(status, qt.Equals, 200)
-	c.Assert(response["fortune_cookie_message"], qt.IsNotNil)
+	c.Assert(response["quote"], qt.IsNotNil)
 	f := time.Since(s)
 	c.Assert(f.Milliseconds() > int64(500), qt.IsTrue)
 }

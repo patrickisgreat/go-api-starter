@@ -5,9 +5,9 @@ spec:
   lifecycle: production
   owner: principal-engineers-team
   definition:
-    $text: ./rpc/fortune_go_api.proto
+    $text: ./rpc/pb_go_api_starter.proto
 metadata:
-  name: fortune_go_api.proto
+  name: pb_go_api_starter.proto
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Component
@@ -16,13 +16,13 @@ spec:
   lifecycle: production
   owner: principal-engineers-team
   providesApis:
-    - fortune_go_api.proto
+    - pb_go_api_starter.proto
 metadata:
-  name: go-api-starter
-  description: Tells your fortune
+  name: pb-go-api-starter
+  description: A random quotes service
   tags:
     - golden-path
     - go
   annotations:
     backstage.io/techdocs-ref: dir:.
-    github.com/project-slug: patrickisgreat/go-api-starter
+    github.com/project-slug: patrickisgreat/pb-go-api-starter

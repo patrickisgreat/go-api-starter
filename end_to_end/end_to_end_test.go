@@ -14,7 +14,7 @@ import (
 	"time"
 )
 
-var fortuneHost string
+var apiHost string
 
 func warn(err error) {
 	if err != nil {
@@ -36,7 +36,7 @@ func runServer(port string) *exec.Cmd {
 	here, err := os.Getwd()
 	warn(err)
 	fmt.Println("Current working directory:", here)
-	serverPath, err := filepath.Abs(filepath.Join(here, "../cmd/app/bin/fortune-go"))
+	serverPath, err := filepath.Abs(filepath.Join(here, "../cmd/app/bin/pb-go-api-starter"))
 	warn(err)
 	cmd := exec.Command(serverPath)
 	err = cmd.Start()
@@ -58,20 +58,20 @@ func runServer(port string) *exec.Cmd {
 func TestMain(m *testing.M) {
 	var cmd *exec.Cmd
 	needsLocalServer := false
-	host := os.Getenv("FORTUNE_HOST")
+	host := os.Getenv("API_HOST")
 	if host == "" {
 		host = "127.0.0.1"
 		needsLocalServer = true
 	}
-	port := os.Getenv("FORTUNE_PORT")
+	port := os.Getenv("API_PORT")
 	if port == "" {
 		port = "8000"
 	}
 	if needsLocalServer {
 		cmd = runServer(port)
 	}
-	fortuneHost = "http://" + host + ":" + port
-	fmt.Printf("Running e2e tests against %s\n", fortuneHost)
+	apiHost = "http://" + host + ":" + port
+	fmt.Printf("Running e2e tests against %s\n", apiHost)
 
 	exitCode := m.Run()
 	if cmd != nil {

@@ -8,14 +8,14 @@ import (
 	"github.com/soundcloud/gokit/v2/logger"
 	"github.com/soundcloud/gokit/v2/opentelemetry/otelsetup"
 
-	"github.com/patrickisgreat/go-api-starter/internal/config"
-	"github.com/patrickisgreat/go-api-starter/internal/cookierepo"
-	"github.com/patrickisgreat/go-api-starter/internal/cookieservice"
+	"github.com/patrickisgreat/pb-go-api-starter/internal/config"
+	"github.com/patrickisgreat/pb-go-api-starter/internal/quoterepo"
+	"github.com/patrickisgreat/pb-go-api-starter/internal/quoteservice"
 )
 
 type ServerContext struct {
-	CookieRepository *cookierepo.CookieRepository
-	CookieService    *cookieservice.CookieService
+	QuoteRepository *quoterepo.QuoteRepository
+	QuoteService    *quoteservice.QuoteService
 }
 
 var sctx *ServerContext
@@ -43,11 +43,11 @@ func GetServerContext() *ServerContext {
 }
 
 func newContext() *ServerContext {
-	cookieRepo := cookierepo.NewCookieRepository()
-	cookieService := cookieservice.NewCookieService(cookieRepo)
+	quoteRepo := quoterepo.NewQuoteRepository()
+	quoteService := quoteservice.NewQuoteService(quoteRepo)
 
 	return &ServerContext{
-		CookieRepository: cookieRepo,
-		CookieService:    cookieService,
+		QuoteRepository: quoteRepo,
+		QuoteService:    quoteService,
 	}
 }

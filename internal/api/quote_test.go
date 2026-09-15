@@ -2,9 +2,7 @@ package api
 
 import (
 	"context"
-	"fmt"
 	"testing"
-	"time"
 
 	qt "github.com/frankban/quicktest"
 	"github.com/soundcloud/gokit/v2/twirp/common_session"
@@ -16,7 +14,7 @@ import (
 	"github.com/patrickisgreat/pb-go-api-starter/internal/quoteservice"
 )
 
-func TestGetQuoteLateHandler(t *testing.T) {
+func TestGetQuoteHandler(t *testing.T) {
 	c := qt.New(t)
 
 	// Build a QuoteService backed by a single known quote
@@ -30,33 +28,23 @@ func TestGetQuoteLateHandler(t *testing.T) {
 	}
 
 	// Create a request
-	request := &proto.GetQuoteLateRequest{
+	request := &proto.GetQuoteRequest{
 		UserSession: &common_session.UserSession{
 			UserUrn:  &wrapperspb.StringValue{Value: "myapp:users:2"},
 			Features: []string{},
 		},
-		DelayMs: &wrapperspb.Int32Value{Value: 500},
 	}
 
-	// Capture the start time
-	s := time.Now()
-
 	// Call the handler
-	response, err := GetQuoteLateHandler(context.Background(), serverContext, request)
+	response, err := GetQuoteHandler(context.Background(), serverContext, request)
 
 	// Assert the results
 	c.Assert(err, qt.IsNil)
 	c.Assert(response, qt.Not(qt.IsNil))
 	c.Assert(response.Quote, qt.Equals, "foo")
-
-	f := time.Since(s)
-	if f.Milliseconds() <= int64(500) {
-		fmt.Printf("f.Milliseconds() = %d\n", f.Milliseconds())
-	}
-	c.Assert(f.Milliseconds() >= int64(500), qt.IsTrue)
 }
 
-func TestGetQuoteLateHandler_InvalidSession(t *testing.T) {
+func TestGetQuoteHandler_InvalidSession(t *testing.T) {
 	c := qt.New(t)
 
 	// Build a QuoteService backed by a single known quote
@@ -70,7 +58,7 @@ func TestGetQuoteLateHandler_InvalidSession(t *testing.T) {
 	}
 
 	// Create a request
-	request := &proto.GetQuoteLateRequest{
+	request := &proto.GetQuoteRequest{
 		UserSession: &common_session.UserSession{
 			UserUrn:  &wrapperspb.StringValue{Value: "myapp:tracks:2"},
 			Features: []string{},
@@ -78,7 +66,7 @@ func TestGetQuoteLateHandler_InvalidSession(t *testing.T) {
 	}
 
 	// Call the handler
-	_, err := GetQuoteLateHandler(context.Background(), serverContext, request)
+	_, err := GetQuoteHandler(context.Background(), serverContext, request)
 
 	// Assert the results
 	c.Assert(err, qt.IsNotNil)

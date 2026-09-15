@@ -1,4 +1,4 @@
-# Fortune
+# pb-go-api-starter
 
 A random quotes service.
 
@@ -6,21 +6,21 @@ This repository showcases a minimal implementation of an idiomatic production re
 
 ## Further Resources
 
-### Fortune
-- [CI pipeline history](https://github.com/patrickisgreat/go-api-starter/actions)
+### Links
+- [CI pipeline history](https://github.com/patrickisgreat/pb-go-api-starter/actions)
 - [Newrelic dashboard](https://one.newrelic.com/nr1-core/open-instrumentation-explorer/summary/NDE2ODgxNnxFWFR8U0VSVklDRXwtNDI4NDAyMTc2Njc0NTY2MTUwNA?account=4168816)
 
 ## Endpoints
 
-Fortune exposes its core functionality as a [twirp service](https://github.com/twitchtv/twirp/blob/master/PROTOCOL.md).
+The service exposes its core functionality as a [twirp service](https://github.com/twitchtv/twirp/blob/master/PROTOCOL.md).
 
 Sample curls:
 
-`curl -i -X POST -H "Content-type: application/json" http://localhost:8000/twirp/proto.patrickisgreat.go_api_starter.api.Fortune/GetCookie --data '{}'`
+`curl -i -X POST -H "Content-type: application/json" http://localhost:8000/twirp/proto.patrickisgreat.pb_go_api_starter.api.Quotes/GetQuote --data '{}'`
 
-`curl -i -X POST -H "Content-type: application/json" http://localhost:8000/twirp/proto.patrickisgreat.go_api_starter.api.Fortune/GetCookieFlaky --data '{}'`
+`curl -i -X POST -H "Content-type: application/json" http://localhost:8000/twirp/proto.patrickisgreat.pb_go_api_starter.api.Quotes/GetQuoteFlaky --data '{}'`
 
-`curl -i -X POST -H "Content-type: application/json" http://localhost:8000/twirp/proto.patrickisgreat.go_api_starter.api.Fortune/GetCookieLate --data '{"delayMs": 2000}'`
+`curl -i -X POST -H "Content-type: application/json" http://localhost:8000/twirp/proto.patrickisgreat.pb_go_api_starter.api.Quotes/GetQuoteLate --data '{"delayMs": 2000}'`
 
 ## Prerequisites
 
@@ -39,4 +39,4 @@ Run `task --list-all` to see a list of available commands.
 
 ## Architecture
 
-![architecture diagram](fortune.svg "Architecture")
+![architecture diagram](docs/images/architecture.svg "Architecture")
